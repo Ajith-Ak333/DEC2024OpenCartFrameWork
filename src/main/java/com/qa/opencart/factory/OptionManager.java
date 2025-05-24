@@ -1,5 +1,7 @@
 package com.qa.opencart.factory;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -32,6 +34,14 @@ public class OptionManager {
 		if(Boolean.parseBoolean(prop.getProperty("remote")))
 		{
 			option.setCapability("browserName", "chrome");
+			option.setBrowserVersion(prop.getProperty("browserversion").trim());
+
+			Map<String, Object> selenoidOptions = new HashMap<>();
+			selenoidOptions.put("screenResolution", "1280x1024x24");
+			selenoidOptions.put("enableVNC", true);
+			selenoidOptions.put("name", prop.getProperty("testname"));
+			option.setCapability("selenoid:options", selenoidOptions);
+
 		}
 		return option ;
 	}
@@ -53,6 +63,14 @@ public class OptionManager {
 		if(Boolean.parseBoolean(prop.getProperty("remote")))
 		{
 			optfir.setCapability("browserName", "firefox");
+			optfir.setBrowserVersion(prop.getProperty("browserversion").trim());
+
+			Map<String, Object> selenoidOptions = new HashMap<>();
+			selenoidOptions.put("screenResolution", "1280x1024x24");
+			selenoidOptions.put("enableVNC", true);
+			selenoidOptions.put("name", prop.getProperty("testname"));
+			optfir.setCapability("selenoid:options", selenoidOptions);
+
 		}
 		return optfir ;
 	}
