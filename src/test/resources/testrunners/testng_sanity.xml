@@ -10,4 +10,5 @@
 			<class name="com.qa.opencart.tests.LoginPageTest" />
 		</classes>
 	</test>
+	
 </suite>	

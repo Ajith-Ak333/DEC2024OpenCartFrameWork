@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class OptionManager {
 	
@@ -28,7 +29,32 @@ public class OptionManager {
 			System.out.println("Running in the incognito mode");
 			option.addArguments("--incognito");
 		}
+		if(Boolean.parseBoolean(prop.getProperty("remote")))
+		{
+			option.setCapability("browserName", "chrome");
+		}
 		return option ;
+	}
+	
+	public FirefoxOptions getFirefoxoptions()
+	{
+		FirefoxOptions optfir = new FirefoxOptions();
+		
+		if(Boolean.parseBoolean(prop.getProperty("headless")))
+		{
+			System.out.println("Running in the headless mode");
+			optfir.addArguments("--headless");
+		}
+		if(Boolean.parseBoolean(prop.getProperty("incognito")))
+		{
+			System.out.println("Running in the incognito mode");
+			optfir.addArguments("--incognito");
+		}
+		if(Boolean.parseBoolean(prop.getProperty("remote")))
+		{
+			optfir.setCapability("browserName", "firefox");
+		}
+		return optfir ;
 	}
 	
 	public EdgeOptions getEdgeOptions()
@@ -44,6 +70,10 @@ public class OptionManager {
 		{
 			System.out.println("Running in the incognito mode");
 			op.addArguments("--inprivate");
+		}
+		if(Boolean.parseBoolean(prop.getProperty("remote")))
+		{
+			op.setCapability("browserName", "edge");
 		}
 		
 		return op ;

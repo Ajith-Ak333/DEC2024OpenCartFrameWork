@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +16,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import com.aventstack.chaintest.plugins.ChainTestListener;
@@ -57,17 +60,43 @@ public class DriverFactory {
 
 		switch (browserName.toLowerCase()) {
 		case "chrome":
-			tldriver.set(new ChromeDriver(op.getChromeOptions()));
+			
+			if(Boolean.parseBoolean(prop.getProperty("remote")))
+			{
+				initRemoteWebDriver("chrome");
+			}
+			else
+			{
+				tldriver.set(new ChromeDriver(op.getChromeOptions()));
+			}		
 			break;
+			
 		case "firefox":
-			tldriver.set(new FirefoxDriver());
+			if(Boolean.parseBoolean(prop.getProperty("remote")))
+			{
+				initRemoteWebDriver("firefox");
+			}
+			else
+			{
+				tldriver.set(new FirefoxDriver(op.getFirefoxoptions()));
+			}	
 			break;
+			
 		case "edge":
-			tldriver.set(new EdgeDriver(op.getEdgeOptions()));
-			break;
+			if(Boolean.parseBoolean(prop.getProperty("remote")))
+			{
+				initRemoteWebDriver("edge");
+			}
+			else
+			{
+				tldriver.set(new EdgeDriver(op.getEdgeOptions()));
+			}	
+			break;	
+			
 		case "safari":
 			tldriver.set(new SafariDriver());
 			break;
+			
 		default:
 			log.error("Plz pass the valid browser name " + browserName);
 			throw new BrowserException("This is not valid browser");
@@ -82,6 +111,40 @@ public class DriverFactory {
 	}
 	
 	
+	@SuppressWarnings("deprecation")
+	private void initRemoteWebDriver(String browsername) 
+	{
+		
+		switch (browsername) {
+		case "chrome":
+			try {
+				tldriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), op.getChromeOptions()));
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			break;
+        case "firefox":
+        	try {
+				tldriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), op.getFirefoxoptions()));
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			break;
+        case "edge":
+        	try {
+				tldriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), op.getEdgeOptions()));
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+	        break;
+
+		default:
+			System.out.println("This is browser is not supported on Selenium GRID server..." + browsername);
+			throw new BrowserException("This is not valid browser");
+		}	
+	}
+
+
 	/**
 	 * getDriver: get the local thread copy of the driver
 	 */
@@ -107,7 +170,7 @@ public class DriverFactory {
 				//System.out.println("env is null, hence running the tests on QA env");
 				log.warn("env is null, hence running the tests on QA env");
 				
-				ip = new FileInputStream(".\\src\\test\\resources\\config\\config.properties");
+				ip = new FileInputStream(".\\src\\test\\resources\\config\\qa.config.properties");
 			} else {
 				//System.out.println("Running tests on env:" + envname);
 				log.info("Running tests on env:" + envname);

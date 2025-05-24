@@ -17,49 +17,49 @@
 		</classes>
 	</test>
 
-	<!--<test name="Login_Page_Test_Firefox">
+	<test name="Login_Page_Test_Firefox">
 		<parameter name="browser" value="firefox" />
 		<classes>
 			<class name="com.qa.opencart.tests.LoginPageTest" />
 		</classes>
 	</test>
 	
-	<test name="Login_Page_Test_Edge">
+	<!-- ><test name="Login_Page_Test_Edge">
 		<parameter name="browser" value="edge" />
 		<classes>
 			<class name="com.qa.opencart.tests.LoginPageTest" />
 		</classes>
 	</test>-->
 
-	<!-- <test name="Products_Page_Test">
-		<parameter name="browser" value="firefox" />
+	 <test name="Products_Page_Test">
+		<parameter name="browser" value="chrome" />
 		<classes>
 			<class name="com.qa.opencart.tests.ProductsPageInfoTest" />
 		</classes>
-	</test>-->
+	</test>
 
-	<!-- <test name="Register_Page_Test">
-		<parameter name="browser" value="edge" />
+	<test name="Register_Page_Test">
+		<parameter name="browser" value="firefox" />
 		<classes>
 			<class name="com.qa.opencart.tests.RegisterPageTest" />
 		</classes>
-	</test>-->
+	</test>
 
-	<test name="Accounts_Page_Test_Chrome">
+	<test name="Accounts_Page_Test_FireFox">
+		<parameter name="browser" value="firefox" />
+		<classes>
+			<class name="com.qa.opencart.tests.AccountsPageTest" />
+		</classes>
+	</test>
+
+	<test name="Accounts_Page_Test_Firefox">
 		<parameter name="browser" value="chrome" />
 		<classes>
 			<class name="com.qa.opencart.tests.AccountsPageTest" />
 		</classes>
 	</test>
-
-	<!--<test name="Accounts_Page_Test_Firefox">
-		<parameter name="browser" value="firefox" />
-		<classes>
-			<class name="com.qa.opencart.tests.AccountsPageTest" />
-		</classes>
-	</test>
 	
-	<test name="Accounts_Page_Test_Edge">
+	<!--test name="Accounts_Page_Test_Edge">
 		<parameter name="browser" value="edge" />
 		<classes>
 			<class name="com.qa.opencart.tests.AccountsPageTest" />
@@ -73,14 +73,14 @@
 		</classes>
 	</test>
 
-	<!--<test name="Results_Page_Test_Firefox">
+	<test name="Results_Page_Test_Firefox">
 		<parameter name="browser" value="firefox" />
 		<classes>
 			<class name="com.qa.opencart.tests.ResultsPageTest" />
 		</classes>
 	</test>
 	
-	<test name="Results_Page_Test_Edge">
+	<!---><test name="Results_Page_Test_Edge">
 		<parameter name="browser" value="edge" />
 		<classes>
 			<class name="com.qa.opencart.tests.ResultsPageTest" />
