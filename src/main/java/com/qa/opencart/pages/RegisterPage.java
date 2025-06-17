@@ -36,14 +36,15 @@ public class RegisterPage {
 		util = new ElementUtil(driver);
 	}
 	
-	public boolean navigateToRegisterPage(String firstname,String lastname,String telephone,String password,String password_confirm,String subscribe)
+	public boolean navigateToRegisterPage(String firstname,String lastname,String telephone,String password,String subscribe)
 	{		
 		util.waitForElementVisible(DEFAULT_TIMEOUT, this.firstname).sendKeys(firstname);
 		util.doSendKeys(this.lastname, lastname);
-		util.doSendKeys(this.regemail, StringUtils.getRandomEmailId());
+		String email = StringUtils.getRandomEmailId();
+		util.doSendKeys(this.regemail, email);
 		util.doSendKeys(this.telephone, telephone);
 		util.doSendKeys(this.password, password);
-		util.doSendKeys(this.password_confirm, password_confirm);
+		util.doSendKeys(this.password_confirm, password);
 		
 		if(subscribe.equalsIgnoreCase("yes"))
 		{
